@@ -55,6 +55,22 @@ Do not confuse these scopes:
 - Before build, deploy, Git branch, LiveKit, GStreamer, RTP, service, or push commands, verify the target using `pwd`, `hostname`, and when useful `uname -a` or `git remote -v`.
 - Never run Linux project scripts directly from local Windows paths.
 
+## Startup Script Rules
+
+When creating or modifying startup scripts, make them one-command launchers and make runtime health visible from logs.
+
+Rules:
+
+- Provide a single command that starts the intended role or service end to end.
+- Print clear logs showing whether startup is normal or abnormal.
+- Include environment, host, role, working directory, branch, key ports, and important URLs in startup output when relevant.
+- Validate prerequisites early and fail fast with actionable error messages.
+- For long-running services, write logs to a predictable file or directory and also show the user how to watch them with `tail -f`, `journalctl -f`, or the project-standard log command.
+- If multiple processes are started, show each process name, PID if available, port binding, and health/status check result.
+- Do not hide failures in background jobs. If a background process exits early, surface that in the main script output.
+- Prefer scripts that can be re-run safely: detect existing processes, occupied ports, stale pid files, and previous logs.
+- The user requirement is: startup scripts should be one-click/one-command, and the user must be able to see from log output whether things are normal or abnormal.
+
 ## Git Management
 
 - If there are committed local changes on a project branch, push them directly to the corresponding remote branch.
@@ -464,13 +480,4 @@ Role: cloud / LiveKit server / frontend
 ```
 
 When operating cloud-side scripts, run them inside WSL Ubuntu under `/home/yawei/remoteAD_rtp_raw_codex`, not from local Windows project paths.
-
-
-
-
-
-
-
-
-
 
