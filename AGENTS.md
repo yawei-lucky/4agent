@@ -25,6 +25,14 @@ cmd /c ssh -o BatchMode=yes -o ConnectTimeout=8 -o ServerAliveInterval=10 -o Ser
 
 If an SSH command fails because authentication is not available in batch mode, stop and report the failure instead of retrying in a way that waits for an interactive password prompt.
 
+## Pragmatism And Anti-Overengineering
+
+- If a task is becoming long, overly complicated, or too polished for the actual goal, pause and tell the user before continuing down that path.
+- Warn the user when the work appears to be drifting into perfectionism, excessive abstraction, or unnecessary completeness.
+- If automation is forced, brittle, or takes more work than doing the task manually, say so and recommend the simpler manual path.
+- Prefer a small reliable solution that achieves the user's goal over a broad framework, unless the user explicitly asks for the broader system.
+- When there is a meaningful tradeoff between speed and completeness, state the tradeoff and suggest the lighter option first.
+
 ## Environment Scope Rules
 
 Before running any command, classify the execution scope first and state it in updates/results when it matters.
