@@ -92,6 +92,28 @@ Current alignment issue to remember:
 - Intended order: commit this runbook/AGENTS update first, rebase onto remote commit `873eaef7`, then push.
 - Before rebasing, inspect `git status`, current branch, upstream, and recent log. Do not discard user work.
 
+
+### Missing Push Permission Rule
+
+If Git push fails because permissions, credentials, or GitHub authentication are missing, directly set up GitHub CLI on the same Linux environment that owns the repository, then retry push.
+
+Use this flow:
+
+```bash
+sudo apt install gh
+gh auth login
+gh auth setup-git
+```
+
+During `gh auth login`, choose:
+
+```text
+GitHub.com
+HTTPS
+Login with a web browser
+```
+
+After authentication succeeds, run `gh auth status`, verify `git remote -v`, and retry `git push`.
 ## Third-Party Fork Ownership
 
 When working on a third-party official repository with local environment adaptations, treat the user's fork as the writable project repository.
@@ -443,6 +465,7 @@ Role: cloud / LiveKit server / frontend
 ```
 
 When operating cloud-side scripts, run them inside WSL Ubuntu under `/home/yawei/remoteAD_rtp_raw_codex`, not from local Windows project paths.
+
 
 
 
